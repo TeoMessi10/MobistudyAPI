@@ -260,6 +260,7 @@ export default {
       trans = await DAL.startTransaction([
         DAL.tasksResultsTransaction(),
         DAL.auditLogsTransaction(),
+        DAL.notesTransaction(),
         DAL.participantsTransaction(),
         DAL.usersTransaction(),
       ])
@@ -268,6 +269,9 @@ export default {
 
       // Remove Audit logs?
       await DAL.deleteLogsByUserKey(partUserKey, trans)
+
+      // Remove notes about the participant
+      await DAL.deleteNotesByParticipant(partUserKey, trans)
 
       // Remove participant
       await DAL.removeParticipant(partKey, trans)

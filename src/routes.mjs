@@ -6,6 +6,7 @@ import auditLogCtrl from './controllers/auditLogCtrl.mjs'
 import studiesCtrl from './controllers/studiesCtrl.mjs'
 import teamsCtrl from './controllers/teamsCtrl.mjs'
 import tasksResultsCtrl from './controllers/tasksResultsCtrl.mjs'
+import notesCtrl from './controllers/notesCtrl.mjs'
 import attachmentsCtrl from './controllers/attachmentsCtrl.mjs'
 import studyStatsCtrl from './controllers/studyStatsCtrl.mjs'
 import vocabularyCtrl from './controllers/vocabularyCtrl.mjs'
@@ -76,6 +77,12 @@ export default async function () {
   await tasksResultsCtrl.init()
   router.get('/tasksResults', mustBeLoggedIn, tasksResultsCtrl.getAll.bind(tasksResultsCtrl))
   router.post('/tasksResults', mustBeLoggedIn, tasksResultsCtrl.createNew.bind(tasksResultsCtrl))
+
+  await notesCtrl.init()
+  router.get('/notes/:studyKey/:participantUserKey', mustBeLoggedIn, notesCtrl.getByParticipant.bind(notesCtrl))
+  router.post('/notes', mustBeLoggedIn, notesCtrl.createNew.bind(notesCtrl))
+  router.patch('/notes/:noteKey', mustBeLoggedIn, notesCtrl.update.bind(notesCtrl))
+  router.delete('/notes/:noteKey', mustBeLoggedIn, notesCtrl.delete.bind(notesCtrl))
 
   await attachmentsCtrl.init()
   router.get('/tasksResults/attachments/:studyKey/:userKey/:taskId/:fileName', mustBeLoggedIn, attachmentsCtrl.getAttachment.bind(attachmentsCtrl))

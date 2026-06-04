@@ -350,6 +350,7 @@ export default {
       let trans = await DAL.startTransaction([
         DAL.participantsTransaction(),
         DAL.tasksResultsTransaction(),
+        DAL.notesTransaction(),
         DAL.studiesTransaction()
       ])
 
@@ -370,6 +371,9 @@ export default {
 
       // Data needs to be deleted before the study
       await DAL.deleteTasksResultsByStudy(studykey, trans)
+
+      // Remove notes attached to the study
+      await DAL.deleteNotesByStudy(studykey, trans)
 
       // Deleting the study
       await DAL.deleteStudy(studykey, trans)

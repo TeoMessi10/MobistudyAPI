@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://mobistudy.org/models/note.json",
+  "title": "Note",
+  "description": "A clinical note written by a researcher about a participant, visible to the researchers involved in the study",
+  "type": "object",
+  "properties": {
+    "studyKey": {
+      "description": "Database key of the study this note belongs to",
+      "type": "string"
+    },
+    "participantUserKey": {
+      "description": "User key of the participant this note is about",
+      "type": "string"
+    },
+    "authorUserKey": {
+      "description": "User key of the researcher that wrote the note",
+      "type": "string"
+    },
+    "authorEmail": {
+      "description": "Email of the researcher that wrote the note, denormalised for display",
+      "type": "string"
+    },
+    "text": {
+      "description": "Textual content of the note",
+      "type": "string"
+    },
+    "createdTS": {
+      "description": "Timestamp of when the note was created, as ISO date string",
+      "type": "string"
+    },
+    "updatedTS": {
+      "description": "Timestamp of when the note was last updated, as ISO date string",
+      "type": "string"
+    }
+  },
+  "required": [
+    "studyKey",
+    "participantUserKey",
+    "text"
+  ]
+}

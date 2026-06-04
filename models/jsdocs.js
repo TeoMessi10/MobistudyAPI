@@ -54,6 +54,19 @@
  */
 
 /**
+ * A clinical note written by a researcher about a participant.
+ * @typedef {Object} Note
+ * @property {string} _key - key of the note
+ * @property {!string} studyKey - key of the study this note belongs to
+ * @property {!string} participantUserKey - user key of the participant this note is about
+ * @property {string} authorUserKey - user key of the researcher that wrote the note
+ * @property {string} authorEmail - email of the researcher that wrote the note, denormalised for display
+ * @property {!string} text - textual content of the note
+ * @property {string} createdTS - ISO 8601 of when the note has been created
+ * @property {string} updatedTS - ISO 8601 of when the note has been last updated
+ */
+
+/**
  * A participant object.
  * @typedef {Object} Participant
  * @property {!string} userKey - key of the user
