@@ -162,10 +162,10 @@ export default {
         return res.status(403).send('Only the author can modify this note')
       }
 
-      note.text = payload.text
-      note.updatedTS = new Date()
-
-      const updatedNote = await DAL.replaceNote(noteKey, note)
+      const updatedNote = await DAL.updateNote(noteKey, {
+        text: payload.text,
+        updatedTS: new Date()
+      })
       res.send(updatedNote)
       applogger.info({ noteKey }, 'Note updated')
       auditLogger.log(

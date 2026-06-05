@@ -145,6 +145,27 @@ const DAL = {
   },
 
   /**
+   * Partially updates a note, merging only the given fields into the existing
+   * document. We assume the _key is the correct one.
+   * @param {string} _key - key of the note
+   * @param {object} changes - the fields to update (e.g. text, updatedTS)
+   * @param {?object} trx - optional, for transactions
+   * @returns {Promise<Types.Note>} a promise that passes the updated note
+   */
+  async updateNote (_key, changes, trx) {
+    const options = { keepNull: false, mergeObjects: true, returnNew: true }
+    let newval
+    if (trx) {
+      newval = await trx.step(() => collection.update(_key, changes, options))
+    } else {
+      newval = await collection.update(_key, changes, options)
+    }
+    applogger.trace(changes, 'Updating note "' + _key + '"')
+
+    return newval.new
+  },
+
+  /**
    * Deletes a note by key
    * @param {string} _key - key of the note
    * @param {?object} trx - optional, transaction
